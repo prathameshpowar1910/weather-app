@@ -14,6 +14,9 @@ var url =
 
   https.get(url, (response) => {
     console.log(response.statusCode);
+      if (response.statusCode != 200 ) {
+          res.redirect("/");
+      } else {
     // console.log(response);
     response.on("data", (data) => {
       const weatherData = JSON.parse(data);
@@ -28,6 +31,7 @@ var url =
         imagesrc:imgsrc
       });
     });
+      }
   });
 });
 
