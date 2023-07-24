@@ -14,9 +14,11 @@ var url =
 
   https.get(url, (response) => {
     console.log(response.statusCode);
-      if (response.statusCode != 200 ) {
-          res.redirect("/");
-      } else {
+    if (response.statusCode==404) {
+      url = "https://api.openweathermap.org/data/2.5/weather?q=England&units=metric&APPID=b883d7d4f078d8b18515c7d45bd4d514";
+      res.render("error")
+    } else {
+
     // console.log(response);
     response.on("data", (data) => {
       const weatherData = JSON.parse(data);
@@ -31,7 +33,7 @@ var url =
         imagesrc:imgsrc
       });
     });
-      }
+  }
   });
 });
 
@@ -43,7 +45,6 @@ app.post('/',(req,res)=>{
   res.redirect("/")
 })
 
-
-app.listen( process.env.PORT || 3000, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log("Server is running on port 3000");
 });
